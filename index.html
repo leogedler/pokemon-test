@@ -1,0 +1,85 @@
+<!doctype html>
+<html ng-app="pokemon" ng-controller="MainController as mainCtrl" class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Pokemons Height</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Leonardo Gedler"/>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+        <!-- Angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/service.js"></script>
+
+        <!-- Font-awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    </head>
+    <body>
+    <nav class="navbar" >
+      <div class="container">
+          <img class="img-responsive" src="img/logo-pokemon.png">
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+          <div class="col-md-offset-2 col-md-8">
+    <div class="input-group input-group-lg">
+      <input type="text" class="form-control" ng-model="searchText" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Just type!</button>
+      </span>
+    </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="container">
+        <div ng-show="mainCtrl.pokemons">
+          <div ng-repeat="pokemon in mainCtrl.pokemons | filter:searchText track by $index" class="col-sm-6 col-md-3">
+              <a class="btn btn-default" href ng-click="mainCtrl.clickOn(pokemon)" role="button">
+              
+              <i ng-show="!pokemon.info" class="fa fa-spinner fa-spin fa-2x center-block loading-small" aria-hidden="true"></i>
+              <img class="img-responsive center-block" ng-src="{{pokemon.info.sprites.front_default}}">
+              <!--<p class="{{pokemon.name}}">{{pokemon.name | capitalize}}</p>-->
+              <p ng-class="pokemon.cssClass">{{pokemon.info.name | capitalize}} <span class="height">{{pokemon.info.height | height}}</span></p>
+              </a>
+          </div>
+        </div> 
+        <div ng-show="!mainCtrl.pokemons" class="text-center div-loading">
+          <div><span><i class="fa fa-spinner fa-spin fa-4x center-block loading-big" aria-hidden="true"></i></span></div>
+        </div>        
+      </div>
+
+      <div class="text-center">
+        <pagination total-items="mainCtrl.totalItems" ng-model="mainCtrl.currentPage" ng-change="mainCtrl.pageChanged()" class="pagination-sm" items-per-page="mainCtrl.itemsPerPage" max-size="mainCtrl.maxSize" boundary-links="true"></pagination>
+      </div>
+    </div> 
+        
+        <footer class="text-center">
+        <p>&copy; The Pokemon Company</p>
+      </footer>
+        
+        
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <!--<script src="js/main.js"></script>-->
+    </body>
+</html>
